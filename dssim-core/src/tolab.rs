@@ -5,7 +5,11 @@ use crate::image::RGBAPLU;
 use crate::image::RGBLU;
 use crate::image::ToRGB;
 use imgref::*;
+
+#[cfg(feature = "parallel")]
 use rayon::prelude::*;
+#[cfg(not(feature = "parallel"))]
+use super::rayon::prelude::*;
 
 const D65x: f64 = 0.9505;
 const D65y: f64 = 1.0;

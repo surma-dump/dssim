@@ -10,6 +10,8 @@ mod ffi;
 mod val;
 mod linear;
 mod tolab;
+#[cfg(not(feature = "parallel"))]
+mod rayon;
 pub use crate::dssim::*;
 pub use crate::image::*;
 pub use crate::linear::*;

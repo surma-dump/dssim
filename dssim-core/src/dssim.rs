@@ -24,13 +24,20 @@ use itertools::multizip;
 use crate::blur;
 use crate::image::*;
 use imgref::*;
-use rayon;
-use rayon::prelude::*;
 use std;
 use std::borrow::Borrow;
 use std::ops;
 pub use crate::val::Dssim as Val;
 pub use crate::tolab::ToLABBitmap;
+
+#[cfg(feature = "parallel")]
+use rayon;
+#[cfg(feature = "parallel")]
+use rayon::prelude::*;
+#[cfg(not(feature = "parallel"))]
+use super::rayon;
+#[cfg(not(feature = "parallel"))]
+use super::rayon::prelude::*;
 
 trait Channable<T, I> {
     fn img1_img2_blur<'a>(&self, modified: &Self, tmp: &mut [I]) -> Vec<T>;
